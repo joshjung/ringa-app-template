@@ -5,7 +5,7 @@ This is a bare-bones 'Hello World' startup kit project for Ringa.
 # Includes
 
 * Webpack 3.6.0
-* Ringa 1.8.0
+* Ringa 0.1.8
 * Babel Transpiling from ES6 to ES5
 * Development and Production Builds
 

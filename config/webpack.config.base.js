@@ -12,14 +12,20 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       react: path.resolve(__dirname, '../node_modules/react'),
-      'react-dom': path.resolve(__dirname, '../node_modules/react-dom')
+      'react-dom': path.resolve(__dirname, '../node_modules/react-dom'),
+      'ringa': path.resolve(__dirname, '../node_modules/ringa'),
+      'react-ringa': path.resolve(__dirname, '../node_modules/react-ringa')
     }
   },
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        include: [
+          path.resolve(__dirname, '../app/src'),
+          path.resolve(__dirname, '../node_modules/ringa'),
+          path.resolve(__dirname, '../node_modules/react-ringa'),
+        ],
         loaders: {
           loader: 'babel-loader',
           options: {
