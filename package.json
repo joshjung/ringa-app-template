@@ -14,7 +14,8 @@
   },
   "keywords": [],
   "authors": [
-    "Joshua Jung <josh@icontrolapp.se>"
+    "Joshua Jung <joshua.p.jung@gmail.com> (https://github.com/joshjung)",
+    "Thomas Yarnall <corragon@gmail.com> (https://github.com/corragon)"
   ],
   "peerDependencies": {
     "react-dom": "15.5.4"
