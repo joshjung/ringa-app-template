@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const Uglify = require("uglifyjs-webpack-plugin");
 
 const baseConfig = require('./webpack.config.base.js');
 
@@ -40,10 +41,12 @@ module.exports = Object.assign({
       cssProcessorOptions: { discardComments: {removeAll: true } },
       canPrint: true
     }),
-    new webpack.optimize.UglifyJsPlugin({
+    new Uglify({
       sourceMap: true,
-      mangle: {
-        except: ["$controller","$customEvent","$detail","$lastEvent","$lastPromiseError","$lastPromiseResult","$ringaEvent","$target","$thread","EventExecutor","FunctionExecutor","I18NController","I18NModel","IifExecutor","ModelWatcher","RingaEvent","Thread","ThreadFactory","_executor","done","event","fail","finalUrl","id","inspectModel","modalContainerModel","modalModel","overlay","overlayContainerModel","resume","stop","url"]
+      uglifyOptions: {
+        mangle: {
+          reserved: ["AppController","AppModel","Bus","ModelWatcher"]
+        }
       }
     }),
     new webpack.DefinePlugin({
