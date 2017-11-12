@@ -1,12 +1,13 @@
 {
   "name": "ringa-app-template",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Ringa JS Application Template",
   "scripts": {
     "clean": "rm -rf dist",
     "dev": "`npm bin`/webpack-dev-server --config ./config/webpack.config.dev.js",
-    "prod": "`npm bin`/webpack --progress --colors --config ./config/webpack.config.prod.js",
-    "analyze": "`npm bin`/webpack --progress --colors --config ./config/webpack.config.prod.analyze.js",
+    "prod": "`rm -rf dist && npm bin`/webpack --progress --colors --config ./config/webpack.config.prod.js",
+    "prod:test": "npm run prod && cd dist && nws",
+    "analyze": "`rm -rf dist && npm bin`/webpack --progress --colors --config ./config/webpack.config.prod.analyze.js",
     "start": "npm run dev"
   },
   "repository": {
@@ -15,11 +16,9 @@
   },
   "keywords": [],
   "authors": [
-    "Joshua Jung <joshua.p.jung@gmail.com>"
+    "Joshua Jung <joshua.p.jung@gmail.com> (https://github.com/joshjung)",
+    "Thomas Yarnall <corragon@gmail.com> (https://github.com/corragon)"
   ],
-  "peerDependencies": {
-    "react-dom": "16.1.0"
-  },
   "dependencies": {
     "babel-jest": "^19.0.0",
     "babel-polyfill": "^6.0.0",
@@ -35,7 +34,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "ringa": "^0.1.17",
-    "ringa-fw-react": "^0.0.17"
+    "ringa-fw-react": "^0.0.19"
   },
   "devDependencies": {
     "babel-core": "^6.7.6",
@@ -56,7 +55,7 @@
     "sass-module-importer": "^1.4.0",
     "style-loader": "^0.13.2",
     "url-loader": "^0.5.8",
-    "webpack": "3.6.0",
+    "webpack": "^3.6.0",
     "webpack-dev-server": "^2.4.1"
   },
   "jest": {

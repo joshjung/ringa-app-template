@@ -4,7 +4,7 @@ This application template can be used as a foundation for a Ringa application th
 
 # Includes
 
-* Webpack 3.6.0
+* Webpack 3.8.1
 * React 16.1.0
 * Ringa 0.1.17
 * Babel Transpiling from ES6 to ES5
@@ -23,6 +23,20 @@ Run the development build for a live-update Webpack development server.
 # Build Production
 
 `npm run prod`
+
+**Note that building production build minifies the Javascript. Ringa JS needs to have its mangle whitelist updated or else your production build will break.**
+
+To edit the mangle list, find it in `config/ugligyMangleWhitelist.json`. See [Preparing for Production](http://ringajs.com/architecture/dependencyInjection/#17-preparing-for-production-uglify) for more information.
+ 
+# Test Production Build in Browser
+
+You can use this test locally to verify your production build is running properly.
+
+**Note: this requires `npm i -g nws` to run:**
+
+`npm run prod:test`
+
+This will run the production build, put it into `dist` and then run a mini web-server from the dist folder.
 
 # Analyze Production Build
 
