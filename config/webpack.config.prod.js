@@ -3,6 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const config = require('./config.json');
+
+const buildInfo = require('./util/buildInfo');
+
 const baseConfig = require('./webpack.config.base.js');
 
 const path = require('path');
@@ -17,25 +21,26 @@ baseConfig.module.loaders.push({
   })
 });
 
-module.exports = Object.assign({
+const finalConfig = Object.assign({
   devtool: 'cheap-module-source-map',
   output: {
     path: path.join(ROOT_PATH, 'dist/'),
-    filename: 'ringa-app.[hash].js',
+    filename: config.artifactRoot + '.[hash].js',
     publicPath: '/'
   },
   plugins: [
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|sv/),
     new HtmlWebpackPlugin({
-      title: 'RingaJS Application Template',
+      title: config.applicationName,
       template: path.resolve(ROOT_PATH, 'app/src/templates/index.ejs'),
       inject: false
     }),
     new ExtractTextPlugin({
-      filename: 'ringa-app.css',
+      filename: config.artifactRoot + '.css',
       allChunks: true
     }),
     new OptimizeCssAssetsPlugin({
-      assetNameRegExp: /ringa-app.css$/g,
+      assetNameRegExp: new RegExp(config.artifactRoot + '.css$'),
       cssProcessor: require('cssnano'),
       cssProcessorOptions: { discardComments: {removeAll: true } },
       canPrint: true
@@ -43,7 +48,7 @@ module.exports = Object.assign({
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       mangle: {
-        except: ["$controller","$customEvent","$detail","$lastEvent","$lastPromiseError","$lastPromiseResult","$ringaEvent","$target","$thread","EventExecutor","FunctionExecutor","I18NController","I18NModel","IifExecutor","ModelWatcher","RingaEvent","Thread","ThreadFactory","_executor","done","event","fail","finalUrl","id","inspectModel","modalContainerModel","modalModel","overlay","overlayContainerModel","resume","stop","url"]
+        except: require('./uglifyMangleWhitelist.json')
       }
     }),
     new webpack.DefinePlugin({
@@ -54,3 +59,19 @@ module.exports = Object.assign({
     })
   ]
 }, baseConfig);
+
+module.exports = new Promise(resolve => {
+  buildInfo((build) => {
+    finalConfig.plugins.unshift(new webpack.DefinePlugin({
+      __DEV__: false,
+      __BUILD__: JSON.stringify(build),
+      __BUILD_EPOCH__: new Date().getTime(),
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }));
+
+    resolve(finalConfig);
+  })
+});
+

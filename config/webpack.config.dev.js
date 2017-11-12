@@ -1,12 +1,37 @@
 const webpack = require('webpack');
 const path = require('path');
+const build = require('./util/buildInfo');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const buildInfo = require('./util/buildInfo');
+
+const config = require('./config.json');
+
 const ROOT_PATH = path.resolve(process.env.PWD);
+
 const baseConfig = require('./webpack.config.base.js');
 
-module.exports = Object.assign({
+baseConfig.module.loaders.push({
+  test: /\.s?css$/,
+  loaders: [
+    'style-loader',
+    'css-loader',
+    {
+      loader: 'sass-loader',
+      options: {
+        outputStyle: 'expanded',
+        includePaths: [
+          path.join(__dirname, 'node_modules'),
+          path.join(__dirname, 'app'),
+          __dirname
+        ]
+      }
+    }
+  ]
+});
+
+const finalConfig = Object.assign({
   devtool: 'cheap-module-eval-source-map',
   output: {
     path: path.join(ROOT_PATH, 'dist'),
@@ -23,11 +48,10 @@ module.exports = Object.assign({
     disableHostCheck: true
   },
   plugins: [
-    new webpack.DefinePlugin({__DEV__: true}),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new HtmlWebpackPlugin({
-      title: 'iControl',
+      title: config.applicationName,
       template: path.resolve(ROOT_PATH, 'app/src/templates/index.ejs'),
       filename: 'index.html',
       inject: false,
@@ -35,3 +59,18 @@ module.exports = Object.assign({
     })
   ]
 }, baseConfig);
+
+module.exports = new Promise(resolve => {
+  buildInfo((build) => {
+    finalConfig.plugins.unshift(new webpack.DefinePlugin({
+      __DEV__: true,
+      __BUILD__: JSON.stringify(build),
+      __BUILD_EPOCH__: new Date().getTime(),
+      'process.env': {
+        NODE_ENV: '"development"'
+      }
+    }));
+
+    resolve(finalConfig);
+  })
+});

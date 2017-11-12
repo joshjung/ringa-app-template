@@ -1,11 +1,12 @@
 # RingaJS Application Template
 
-This is a bare-bones 'Hello World' startup kit project for Ringa.
+This application template can be used as a foundation for a Ringa application that uses the Ringa component library.
 
 # Includes
 
 * Webpack 3.6.0
-* Ringa 1.8.0
+* React 16.1.0
+* Ringa 0.1.17
 * Babel Transpiling from ES6 to ES5
 * Development and Production Builds
 
@@ -15,15 +16,17 @@ This is a bare-bones 'Hello World' startup kit project for Ringa.
 
 # Development
 
+Run the development build for a live-update Webpack development server.
+
 `npm start`
 
-# Production
+# Build Production
 
 `npm run prod`
 
-# Files
+# Analyze Production Build
 
-* `app/src/App.jsx`: main application Component, includes `Model` and `Controller` examples
+`npm run analyze`
 
 License
 =======
