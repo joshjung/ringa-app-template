@@ -28,6 +28,8 @@ Build an uglified fully packaged production build that is ready to go:
 
 `npm run prod`
 
+The full production build, all assets, is only **193kb gzipped** for everything.
+
 # Test Production Build
 
 To test the uglified production build (to make sure the uglified code does not break), run:

@@ -7,6 +7,13 @@ This Ringa JS Application Template is designed as a starting point to building a
 * React Ringa Plugin ([react-ringa](http://www.ringajs.com/ringa-js/react-ringa))
 * Ringa JS Component Library ([ringa-fw-react](http://www.ringajs.com/ringa-js/ringa-fw-react))
 
+[Click here for documentation and a demonstration of all components available to you.](http://react.ringajs.com/)
+
+# Tiny
+
+This template starts out at only **193kb gzipped** with all library components included and
+ready to go.
+
 # Features
 
 1. Integrated `BUILD_INFO` into the build (see the version in `Footer.jsx` for example)
