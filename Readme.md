@@ -2,13 +2,15 @@
 
 This application template can be used as a foundation for a Ringa application that uses the Ringa component library.
 
-# Includes
+# Setup
 
+* Node 8.7.0 (recommended)
 * Webpack 3.8.1
 * React 16.1.0
-* Ringa 0.1.17
+* Ringa 0.2.1
+* Ringa React Framework 0.2.2
 * Babel Transpiling from ES6 to ES5
-* Development and Production Builds
+* Development (hot reloading) and Production (uglified) Builds
 
 # Installing
 
@@ -22,7 +24,21 @@ Run the development build for a live-update Webpack development server.
 
 # Build Production
 
+Build an uglified fully packaged production build that is ready to go:
+
 `npm run prod`
+
+# Test Production Build
+
+To test the uglified production build (to make sure the uglified code does not break), run:
+
+`npm run prod:test`
+
+# Analyze Production Build
+
+If you want to analyze the uglified size of your final production build, you can run:
+
+`npm run prod:analyze`
 
 **Note that building production build minifies the Javascript. Ringa JS needs to have its mangle whitelist updated or else your production build will break.**
 
@@ -40,7 +56,7 @@ This will run the production build, put it into `dist` and then run a mini web-s
 
 # Analyze Production Build
 
-`npm run analyze`
+`npm run prod:analyze`
 
 License
 =======

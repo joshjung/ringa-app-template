@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 const config = require('./config.json');
 
@@ -22,14 +23,14 @@ baseConfig.module.loaders.push({
 });
 
 const finalConfig = Object.assign({
-  devtool: 'cheap-module-source-map',
+  devtool: false,
   output: {
     path: path.join(ROOT_PATH, 'dist/'),
     filename: config.artifactRoot + '.[hash].js',
     publicPath: '/'
   },
   plugins: [
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|sv/),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
     new HtmlWebpackPlugin({
       title: config.applicationName,
       template: path.resolve(ROOT_PATH, 'app/src/templates/index.ejs'),
@@ -45,10 +46,14 @@ const finalConfig = Object.assign({
       cssProcessorOptions: { discardComments: {removeAll: true } },
       canPrint: true
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      mangle: {
-        except: require('./uglifyMangleWhitelist.json')
+    new UglifyJSPlugin({
+      sourceMap: false,
+      uglifyOptions: {
+        mangle: {
+          keep_classnames: true,
+          keep_fnames: true,
+          reserved: require('./uglifyMangleWhitelist.json')
+        }
       }
     }),
     new webpack.DefinePlugin({

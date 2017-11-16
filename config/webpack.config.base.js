@@ -18,7 +18,11 @@ module.exports = {
       'ringa': path.resolve(__dirname, '../node_modules/ringa'),
       'react-ringa': path.resolve(__dirname, '../node_modules/react-ringa'),
       'ringa-fw-core': path.resolve(__dirname, '../node_modules/ringa-fw-core'),
-      'ringa-fw-react': path.resolve(__dirname, '../node_modules/ringa-fw-react')
+      'ringa-fw-react': path.resolve(__dirname, '../node_modules/ringa-fw-react'),
+      'showdown': path.resolve(__dirname, '../node_modules/showdown'),
+      'highlight.js': path.resolve(__dirname, '../node_modules/highlight.js'),
+      'moment': path.resolve(__dirname, '../node_modules/moment'),
+      'trie-search': path.resolve(__dirname, '../node_modules/trie-search')
     }
   },
   module: {
@@ -43,7 +47,7 @@ module.exports = {
         loader: {
           loader: 'url-loader',
           options: {
-            limit: 10000,
+            limit: 256,
             mimetype: 'image/png',
             name: 'assets/[name].[hash].[ext]'
           }
@@ -54,7 +58,7 @@ module.exports = {
         loader: {
           loader: 'url-loader',
           options: {
-            limit: 10000,
+            limit: 256,
             name: 'assets/[name].[hash].[ext]'
           }
         }
