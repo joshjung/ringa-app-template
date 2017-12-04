@@ -26,7 +26,7 @@ const finalConfig = Object.assign({
   devtool: false,
   output: {
     path: path.join(ROOT_PATH, 'dist/'),
-    filename: config.artifactRoot + '.[hash].js',
+    filename: config.artifactRoot + '.[name].[hash].js',
     publicPath: '/'
   },
   plugins: [

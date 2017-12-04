@@ -34,7 +34,7 @@ const finalConfig = Object.assign({
   devtool: 'cheap-module-eval-source-map',
   output: {
     path: path.join(ROOT_PATH, 'dist'),
-    filename: '[name].[hash].js',
+    filename: '[name].js',
     publicPath: '/'
   },
   devServer: {
